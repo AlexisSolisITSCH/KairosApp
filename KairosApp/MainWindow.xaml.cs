@@ -84,6 +84,7 @@ public partial class MainWindow : Window
                     dgContactos.ItemsSource = null;
                     dgContactos.ItemsSource = contactos;
 
+                    GuardarContactosDB();
                     MessageBox.Show("Contactos importados!!", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }catch(IOException)
@@ -94,6 +95,23 @@ public partial class MainWindow : Window
             {
                 MessageBox.Show($"Error al importar el archivo: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+    }
+
+    private void GuardarContactosDB()
+    {
+        using (var context = new AppDbContext())//->Funciona para abrir a la conexion de la base de datos
+        {
+            // El contacto se guardara si no existe en DB
+            foreach (var contacto in contactos)
+            {
+                if (!context.Contactos.Any(c => c.Telefono == contacto.Telefono))
+                {
+                    context.Contactos.Add(contacto);
+                }
+            }
+            context.SaveChanges();
+            MessageBox.Show("Contactos Guardados de la Base de Datos.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
