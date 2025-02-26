@@ -12,6 +12,7 @@ using OfficeOpenXml;
 using Microsoft.Win32;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Packaging;
 using System.Linq;
 using KairosApp.Models;
 
@@ -19,11 +20,14 @@ namespace KairosApp;
 
 public partial class MainWindow : Window
 {
+    // Variables
     private List<Contacto> contactos = new List<Contacto> ();
+    private string archivoAdjunto = "";
 
     public MainWindow()
     {
         InitializeComponent();
+        CargarContactosDB();
     }
 
     private void BtnImportar_Click(object sender, RoutedEventArgs e)
@@ -98,6 +102,75 @@ public partial class MainWindow : Window
         }
     }
 
+    private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
+    {
+        contactos.Clear();
+        dgContactos.ItemsSource = null;
+        MessageBox.Show("Lista limpiada!", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void TxtBuscar_Up(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        string filtro = txtBuscar.Text.ToLower();
+
+        var contactosFiltrados = contactos
+            .Where(c =>  c.Nombre.ToLower().Contains(filtro) || c.Telefono.Contains(filtro))
+            .ToList();
+
+        dgContactos.ItemsSource = contactosFiltrados;
+    }
+
+    private void BtnAdjuntar_Click(object sender, RoutedEventArgs e) 
+    {
+        OpenFileDialog dialogo = new OpenFileDialog
+        {
+            Filter = "Todos los archivos|*.*|Imágenes|*.jpg;*.jpeg;*.png|PDF|*.pdf",
+            Title = "Seleccionar archivo adjunto"
+        };
+
+        if (dialogo.ShowDialog() == true)
+        {
+            archivoAdjunto = dialogo.FileName;
+            ArchAdjunto.Text = $"Archivo(s) Seleccionado(s): {System.IO.Path.GetFileName(archivoAdjunto)}";
+        }
+    }
+
+    private void BtnEnviar_Click(object sender, RoutedEventArgs e)
+    {
+        if (dgContactos.SelectedItem is Contacto contactoSeleccionado)
+        {
+            if (string.IsNullOrWhiteSpace(txtMensaje.Text))
+            {
+                MessageBox.Show("El Mensaje no puede estar vacio", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            using (var context = new AppDbContext())
+            {
+                var nuevoMensaje = new Mensaje
+                {
+                    ContactoId = contactoSeleccionado.Id,
+                    Contenido = txtMensaje.Text,
+                    ArchivoAdjunto = string.IsNullOrEmpty(archivoAdjunto) ? null : archivoAdjunto,
+                    Estado = "Pendiente"
+                };
+
+                context.Mensajes.Add(nuevoMensaje);
+                context.SaveChanges();
+
+                MessageBox.Show("Mensaje guardado correctamente.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            txtMensaje.Text = "";
+            archivoAdjunto = "";
+            ArchAdjunto.Text = "Ningun archivo adjunto";
+        }
+        else
+        {
+            MessageBox.Show("Selecciona un contacto a enviar el mensaje!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
     private void GuardarContactosDB()
     {
         using (var context = new AppDbContext())//->Funciona para abrir a la conexion de la base de datos
@@ -111,7 +184,15 @@ public partial class MainWindow : Window
                 }
             }
             context.SaveChanges();
-            MessageBox.Show("Contactos Guardados de la Base de Datos.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    private void CargarContactosDB()
+    {
+        using (var context = new AppDbContext())
+        {
+            contactos = context.Contactos.ToList();
+            dgContactos.ItemsSource = contactos;
         }
     }
 }

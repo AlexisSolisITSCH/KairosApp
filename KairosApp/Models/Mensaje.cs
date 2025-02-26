@@ -11,6 +11,7 @@ namespace KairosApp.Models
         public int Id { get; set; }
         public int ContactoId { get; set; }
         public string Contenido { get; set; }
+        public string ArchivoAdjunto { get; set; }
         public string Estado { get; set; } = "Pendiente";
         public DateTime FechaEnvio { get; set; } = DateTime.Now;
     }

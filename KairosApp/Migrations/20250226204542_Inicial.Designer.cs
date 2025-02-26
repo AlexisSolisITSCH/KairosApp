@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KairosApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250225175605_Inicial")]
+    [Migration("20250226204542_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -53,6 +53,10 @@ namespace KairosApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ArchivoAdjunto")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ContactoId")
                         .HasColumnType("int");

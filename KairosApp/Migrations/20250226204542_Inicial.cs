@@ -33,6 +33,7 @@ namespace KairosApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ContactoId = table.Column<int>(type: "int", nullable: false),
                     Contenido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ArchivoAdjunto = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Estado = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaEnvio = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
