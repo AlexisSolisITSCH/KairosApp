@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Packaging;
 using System.Linq;
+using RestSharp;
+using Newtonsoft.Json.Linq;
 using KairosApp.Models;
 
 namespace KairosApp;
@@ -24,6 +26,13 @@ public partial class MainWindow : Window
     private List<Contacto> contactos = new List<Contacto> ();
     private string archivoAdjunto = "";
 
+    //API Whatsapp
+    /*
+    private const string TokenAcceso 
+        = "EAAQt1G61oFwBOZCXtcVXLcGq0OiaFUsXpocwJRxWbsFXfEjg0dFJWWEeQ8v8EsjZBxR2ainoJguvzWGT6eDhDdcm934WcaeHLaZAP30fMwjjMZAv9RiTQDKJyCQgAv2ZBKVW50z4ZB6ljqEGFWjpVuemg7ioB8giHcyoec9rUJJj1MzvmbZB7GbIQiS9SEkmgYpM1YwtZCUZB2B9qkZA5sRZAYVo33YbsMZD";
+    private const string IdTelefonoMeta = "617710981414886";
+    private const string UrlWhatsAppApi = "https://graph.facebook.com/v21.0/";
+    */
     public MainWindow()
     {
         InitializeComponent();
@@ -67,7 +76,7 @@ public partial class MainWindow : Window
                         return;
                     }
 
-                    contactos.Clear();
+                    List<Contacto> nuevosContactos = new List<Contacto>();
 
                     for(int row = 2; row < rowCount; row++)
                     {
@@ -82,9 +91,15 @@ public partial class MainWindow : Window
                                 return;
                             }
                             contactos.Add(new Contacto { Nombre = nombre, Telefono = telefono });
+
+                            if (!contactos.Any(c => c.Telefono == telefono))
+                            {
+                                nuevosContactos.Add(new Contacto { Nombre = nombre, Telefono = telefono });
+                            }
                         }
                     }
 
+                    contactos.AddRange(nuevosContactos);
                     dgContactos.ItemsSource = null;
                     dgContactos.ItemsSource = contactos;
 
@@ -160,6 +175,7 @@ public partial class MainWindow : Window
 
                 MessageBox.Show("Mensaje guardado correctamente.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+            //EnviarMsgWhatsapp(contactoSeleccionado.Telefono, txtMensaje.Text);
 
             txtMensaje.Text = "";
             archivoAdjunto = "";
@@ -170,7 +186,37 @@ public partial class MainWindow : Window
             MessageBox.Show("Selecciona un contacto a enviar el mensaje!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
+    /*Enviar mensaje API Whatsapp
+    private void EnviarMsgWhatsapp(string telefonoDestino, string mensaje)
+    {
+        var client = new RestClient();
+        var request = new RestRequest($"{UrlWhatsAppApi}{IdTelefonoMeta}/messages", Method.Post);
 
+        request.AddHeader("Authorization", $"Bearer {TokenAcceso}");
+        request.AddHeader("Content-Type", "application/json");
+
+        var body = new
+        {
+            messaging_product = "whatsapp",
+            to = telefonoDestino,
+            type = "text",
+            text = new { body = mensaje }
+        };
+
+        request.AddJsonBody(body);
+
+        var response = client.Execute(request);
+
+        if (response.IsSuccessful)
+        {
+            MessageBox.Show("Mensaje enviado con éxito.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        else
+        {
+            MessageBox.Show($"Error al enviar mensaje: {response.Content}", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+    */
     private void GuardarContactosDB()
     {
         using (var context = new AppDbContext())//->Funciona para abrir a la conexion de la base de datos
