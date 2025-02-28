@@ -17,6 +17,7 @@ using System.Linq;
 using RestSharp;
 using Newtonsoft.Json.Linq;
 using KairosApp.Models;
+using System.Windows.Threading;
 
 namespace KairosApp;
 
@@ -25,11 +26,12 @@ public partial class MainWindow : Window
     // Variables
     private List<Contacto> contactos = new List<Contacto> ();
     private string archivoAdjunto = "";
+    private bool sesionIniciada = false;
 
     //API Whatsapp
     /*
     private const string TokenAcceso 
-        = "EAAQt1G61oFwBOZCXtcVXLcGq0OiaFUsXpocwJRxWbsFXfEjg0dFJWWEeQ8v8EsjZBxR2ainoJguvzWGT6eDhDdcm934WcaeHLaZAP30fMwjjMZAv9RiTQDKJyCQgAv2ZBKVW50z4ZB6ljqEGFWjpVuemg7ioB8giHcyoec9rUJJj1MzvmbZB7GbIQiS9SEkmgYpM1YwtZCUZB2B9qkZA5sRZAYVo33YbsMZD";
+        = "EAAQt1G61oFwBOZBH6gELpQk4Kv6F4cZCbNfnAMHvZAGmiB6FHYdB1ZBesT2kBanxxU6ZCZBg6m5CBBUTmW3WfHSB09onGRcQyAZC7YfYuWVmGOOmYZB2xjtfhaJjngCDSqaqMfinyiVbWmAEmxEORNc2yjQT0g9RofTsaDSJ0m7G5jmDKZC2c4PYU9IfxOzKENZBInCRykaaMUihkSjZB5zxrtMMtcLsOEZD";
     private const string IdTelefonoMeta = "617710981414886";
     private const string UrlWhatsAppApi = "https://graph.facebook.com/v21.0/";
     */
@@ -186,6 +188,20 @@ public partial class MainWindow : Window
             MessageBox.Show("Selecciona un contacto a enviar el mensaje!", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
+
+    private void BtnVincular_Click(object sender, RoutedEventArgs e)
+    {
+        if (!sesionIniciada)
+        {
+            VentanaQR ventanaQR = new VentanaQR(this);
+            ventanaQR.ShowDialog();
+        }
+        else
+        {
+            CerrarSesion();
+        }
+    }
+
     /*Enviar mensaje API Whatsapp
     private void EnviarMsgWhatsapp(string telefonoDestino, string mensaje)
     {
@@ -240,5 +256,19 @@ public partial class MainWindow : Window
             contactos = context.Contactos.ToList();
             dgContactos.ItemsSource = contactos;
         }
+    }
+
+    // Metodos de prueba
+    public void CambioEstadoSesion()
+    {
+        sesionIniciada = true;
+        Dispatcher.Invoke(() => BtnVincular.Content = "Cerrar Sesion");
+    }
+
+    private void CerrarSesion()
+    {
+        sesionIniciada = false;
+        Dispatcher.Invoke(() => BtnVincular.Content = "Iniciar Sesión");
+        MessageBox.Show("Sesión cerrada correctamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }

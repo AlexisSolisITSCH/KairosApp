@@ -10,6 +10,8 @@
     <Grid Margin="10">
         <Border Background="White" Padding="15" CornerRadius="10" Margin="10">
             <StackPanel>
+                <Button x:Name="BtnVincular" HorizontalAlignment="Right" Content="Iniciar Sesion" Click="BtnVincular_Click"
+                        Width="100" Height="20" Margin="0,30,30,-30"/>
                 <TextBlock Text="Kairos eFact" FontSize="24" FontWeight="Bold"
                             Foreground="#007ACC" HorizontalAlignment="Center"/>
                 <!--Botones-->
