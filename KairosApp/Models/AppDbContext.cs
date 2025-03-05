@@ -12,6 +12,7 @@ namespace KairosApp.Models
         //Son las tablas de KairosDB
         public DbSet<Contacto> Contactos { get; set; }
         public DbSet<Mensaje> Mensajes { get; set; }
+        public DbSet<Recibidos> Recibidos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -43,7 +43,7 @@ namespace KairosApp
             {
                 timer.Stop();
                 _mainWindow.CambioEstadoSesion(); 
-                this.Hide();
+                this.Close();
             };
             timer.Start();
         }

@@ -7,57 +7,74 @@
         mc:Ignorable="d"
         Title="Kairos eFact" Height="720" Width="1280"
         Background="#F4F4F4">
-    <Grid Margin="10">
-        <Border Background="White" Padding="15" CornerRadius="10" Margin="10">
-            <StackPanel>
-                <Button x:Name="BtnVincular" HorizontalAlignment="Right" Content="Iniciar Sesion" Click="BtnVincular_Click"
-                        Width="100" Height="20" Margin="0,30,30,-30"/>
-                <TextBlock Text="Kairos eFact" FontSize="24" FontWeight="Bold"
-                            Foreground="#007ACC" HorizontalAlignment="Center"/>
-                <!--Botones-->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
-                            Margin="0, 10, 117, 0" Width="223">
-                    <Button Content="Importar Contactos" Width="115" 
-                            Height="25" Click="BtnImportar_Click"/>
-                    <Button Content="Limpiar Lista" Width="100" Margin="10,0, 0,0"
-                            Click="BtnLimpiar_Click"/>
-                </StackPanel>
 
-                <!--Barra de Busqueda-->
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0, 5,190, 0">
-                    <TextBox x:Name="txtBuscar" Width="300" Height="20"
-                             KeyUp="TxtBuscar_Up"/>
-                </StackPanel>
+    <DockPanel LastChildFill="True">
+        <!-- Encabezado -->
+        <TextBlock Text="Kairos eFact" FontSize="24" FontWeight="Bold"
+                   Foreground="#007ACC" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="10"/>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, -20, 610, 0">
-                    <TextBlock Text="Buscar Contacto:" FontSize="15"  HorizontalAlignment="Center"/>
-                </StackPanel>
+        <!-- Botón de inicio de sesión -->
+        <Button x:Name="BtnVincular" Content="Iniciar Sesión" Click="BtnVincular_Click"
+                Width="120" Height="30" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Right"/>
 
-                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="650,-20,0,0" Width="470">
-                    <TextBlock Text="Redactar Mensaje" FontSize="16"/>
-                    <TextBox x:Name="txtMensaje" AcceptsReturn="True" Height="200"/>
-                </StackPanel>
+        <!-- Control de Envíos (Historial de Mensajes) -->
+        <StackPanel Width="250" Background="#E3F2FD" DockPanel.Dock="Left" Margin="10">
+            <TextBlock Text="Control de Envíos" FontWeight="Bold" FontSize="16" Margin="5"/>
+            <DataGrid x:Name="dgHistorialEnvios" AutoGenerateColumns="False" Height="300" Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Width="*"/>
+                    <DataGridTextColumn Header="Número" Binding="{Binding Numero}" Width="*"/>
+                    <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            
+        </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10, 50,0">
-                    <TextBlock x:Name="ArchAdjunto" Width="360" Text="Ningun Archivo Adjunto" Margin="10,0,0,0"/>
-                    <Button Content="Adjuntar Archivo" Width="100" Click="BtnAdjuntar_Click"/>
-                </StackPanel>
+        <StackPanel Width="250" Background="#E8F5E9" DockPanel.Dock="Right" Margin="10">
+            <TextBlock Text="Mensajes Recibidos" FontWeight="Bold" FontSize="16" Margin="5"/>
+            <DataGrid x:Name="dgMensajesRecibidos" AutoGenerateColumns="False" Height="300" Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding FechaRecibido}" Width="*"/>
+                    <DataGridTextColumn Header="Remitente" Binding="{Binding NumRemitente}" Width="*"/>
+                    <DataGridTextColumn Header="Mensaje" Binding="{Binding Mensaje}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Simular Respuesta" Width="150" Click="BtnSimularRespuesta_Click" Margin="10"/>
+            <Button Content="Limpiar" Width="100" Height="25" Click="BtnLimpiarMensajesRec"/>
+        </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 10, 50, 0">
-                    <Button Content="Enviar Mensaje" Width="100" Click="BtnEnviar_Click"/>
-                </StackPanel>
-
-
-                <!--Lista de Contactos-->
-                <DataGrid x:Name="dgContactos" AutoGenerateColumns="False" 
-                          IsReadOnly="True" Height="469" 
-                          Margin="200, -260, 550 ,375" Background="White">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
-                        <DataGridTextColumn Header="Telefono" Binding="{Binding Telefono}" Width="*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+        <!-- Área central: Lista de contactos y Redacción de Mensajes -->
+        <StackPanel Background="White" Margin="10">
+            <!-- Barra de búsqueda y botones -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                <TextBlock Text="Buscar Contacto" FontSize="16" Margin="0,3,10,0"/>
+                <TextBox x:Name="txtBuscar" Width="300" Height="25" KeyUp="TxtBuscar_Up"/>
+                <Button Content="Importar Contactos" Width="140" Height="25" Click="BtnImportar_Click" Margin="5"/>
+                <Button Content="Limpiar Lista" Width="100" Height="25" Click="BtnLimpiar_Click"/>
             </StackPanel>
-        </Border>
-    </Grid>
+
+            <!-- Lista de Contactos -->
+            <DataGrid x:Name="dgContactos" AutoGenerateColumns="False" IsReadOnly="True" Height="250" Background="White" Margin="5">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+                    <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Redacción de Mensajes -->
+            <StackPanel Margin="5">
+                <TextBlock Text="Redactar Mensaje" FontSize="16"/>
+                <TextBox x:Name="txtMensaje" AcceptsReturn="True" Height="100"/>
+            </StackPanel>
+
+            <!-- Adjuntar Archivos y Enviar -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <TextBlock x:Name="ArchAdjunto" Width="250" Text="Ningún Archivo Adjunto" Margin="5"/>
+                <Button Content="Adjuntar Archivo" Width="120" Click="BtnAdjuntar_Click"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <Button Content="Enviar Mensaje" Width="120" Click="BtnEnviar_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
 </Window>

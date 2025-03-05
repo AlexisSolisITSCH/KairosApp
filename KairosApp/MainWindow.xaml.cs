@@ -25,6 +25,7 @@ public partial class MainWindow : Window
 {
     // Variables
     private List<Contacto> contactos = new List<Contacto> ();
+    private List<Recibidos> respuesta = new List<Recibidos>();  
     private string archivoAdjunto = "";
     private bool sesionIniciada = false;
 
@@ -39,6 +40,7 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         CargarContactosDB();
+        CargarMensajesRecibidos();
     }
 
     private void BtnImportar_Click(object sender, RoutedEventArgs e)
@@ -202,6 +204,43 @@ public partial class MainWindow : Window
         }
     }
 
+    public void BtnSimularRespuesta_Click(object sender, RoutedEventArgs e)
+    {
+        using (var context = new AppDbContext())
+        {
+            var respuesta = new Recibidos{
+                NumRemitente = "1234567890",
+                Mensaje = "Hola, soy un mensaje de prueba",
+                FechaRecibido = DateTime.Now
+            };
+
+            context.Recibidos.Add(respuesta);
+            context.SaveChanges();
+
+            MessageBox.Show("Mensaje de prueba guardado correctamente.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        CargarMensajesRecibidos();
+    }
+
+    private void BtnLimpiarMensajesRec(object sender, RoutedEventArgs e)
+    {
+        var resultado = MessageBox.Show("¿Estas seguro de eliminar la lista de mensajes recibidos?",
+                                        "Confirmar eliminacion",
+                                        MessageBoxButton.YesNo,
+                                        MessageBoxImage.Warning);
+
+        if (resultado == MessageBoxResult.Yes)
+        {
+            using(var context = new AppDbContext())
+            {
+                context.Recibidos.RemoveRange(context.Recibidos);
+                context.SaveChanges();
+            }
+            CargarMensajesRecibidos();
+            MessageBox.Show("Lista limpiada!", "Informacion", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
     /*Enviar mensaje API Whatsapp
     private void EnviarMsgWhatsapp(string telefonoDestino, string mensaje)
     {
@@ -256,7 +295,7 @@ public partial class MainWindow : Window
             contactos = context.Contactos.ToList();
             dgContactos.ItemsSource = contactos;
         }
-    }
+    } 
 
     // Metodos de prueba
     public void CambioEstadoSesion()
@@ -270,5 +309,14 @@ public partial class MainWindow : Window
         sesionIniciada = false;
         Dispatcher.Invoke(() => BtnVincular.Content = "Iniciar Sesión");
         MessageBox.Show("Sesión cerrada correctamente.", "Información", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    private void CargarMensajesRecibidos()
+    {
+        using (var context = new AppDbContext())
+        {
+            var mensajes = context.Recibidos.ToList();
+            dgMensajesRecibidos.ItemsSource = mensajes;
+        }
     }
 }
