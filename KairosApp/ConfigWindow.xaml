@@ -1,0 +1,448 @@
+﻿<Window x:Class="KairosApp.ConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:KairosApp"
+        mc:Ignorable="d"
+        Width="700"
+        Height="465"
+        AllowsTransparency="True"
+        Background="Transparent"
+        MouseLeftButtonDown="Windows_MousDown"
+        ResizeMode="NoResize"
+        Loaded="Window_Loaded"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None">
+
+    <Window.Resources>
+        <!--  COLORES DEGRADADO PERSONALIZADO  -->
+        <Color x:Key="secondaryBackColor1">#0B0940</Color>
+        <Color x:Key="secondaryBackColor2">#04198C</Color>
+
+        <!--  Fuente global para Label  -->
+        <Style TargetType="Label">
+            <Setter Property="FontFamily" Value="Arial Black" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+        <!--  Fuente global para TextBox  -->
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Arial Black" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+
+        <!--  Fuente global para Botones  -->
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="Arial Black" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="FontFamily" Value="Century Gothic"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}">
+                            <ContentPresenter
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="4,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#1C1C3A"/>
+                                <Setter Property="Foreground" Value="#42E6A4"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="#42E6A4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <Border
+    Padding="0,0,0,20"
+    BorderBrush="#0d0940"
+    BorderThickness="2"
+    CornerRadius="20">
+        <Border.Background>
+            <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="{StaticResource thirdBackColor2}" />
+                <GradientStop Offset="1" Color="{StaticResource primaryBackColor1}" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+
+                <!--  ENCABEZADO  -->
+                <Border
+                Padding="10,0"
+                VerticalAlignment="Center"
+                Background="{StaticResource color27}"
+                BorderThickness="0"
+                CornerRadius="18,18,0,0" Height="60">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  Título  -->
+                        <TextBlock
+                        Margin="0,10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        FontFamily="Century Gothic"
+                        Text="Configuración" />
+
+                        <!--  Botón de cerrar  -->
+                        <Button
+                        x:Name="btnClose"
+                        Grid.Column="1"
+                        Width="25"
+                        Height="25"
+                        Margin="0,10,10,0"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        BorderThickness="0"
+                        Click="btnCerrar_Click"
+                        Content="X"
+                        Cursor="Hand"
+                        FontFamily="Century Gothic"
+                        FontSize="12"
+                        Foreground="White">
+
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="red" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#99D0F2" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border
+                                    Width="18"
+                                    Height="18"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="5">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </Border>
+
+
+                <!--  CONTENIDO PRINCIPAL  -->
+                <StackPanel Grid.Row="1" Margin="20,20,20,0">
+                    <!--  TOKEN  -->
+                    <Label Content="Token de Acceso:" FontFamily="Century Gothic" />
+                    <Border
+                    Margin="0,0,0,10"
+                    BorderBrush="Gray"
+                    BorderThickness="0,0,0,2"
+                    CornerRadius="4">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="449*" />
+                                <ColumnDefinition Width="59*" />
+                                <ColumnDefinition Width="148*" />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                            Width="50"
+                            Margin="4,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Source="/Images/token.png" />
+
+                            <TextBox
+                            x:Name="txtAccessToken"
+                            Grid.ColumnSpan="3"
+                            Height="60"
+                            Padding="54,4,4,4"
+                            AcceptsReturn="True"
+                            Background="Transparent"
+                            FontFamily="Century Gothic"
+                            BorderThickness="0"
+                            CaretBrush="White"
+                            FontWeight="Medium"
+                            HorizontalScrollBarVisibility="Auto"
+                            TextChanged="ValidarCampos"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto" />
+                        </Grid>
+                    </Border>
+                    <!--  PHONE ID  -->
+                    <Label Content="ID del número de teléfono:"
+                           FontFamily="Century Gothic"/>
+                    <Border
+                    Margin="0,0,0,10"
+                    BorderBrush="Gray"
+                    BorderThickness="0,0,0,2"
+                    CornerRadius="4">
+                        <Grid>
+                            <Image
+                            Width="24"
+                            Margin="4,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Source="/Images/phone.png" />
+                            <TextBox
+                            FontFamily="Century Gothic"
+                            x:Name="txtPhoneId"
+                            IsReadOnly="True"
+                            Height="30"
+                            Padding="35,9,0,0"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            CaretBrush="White"
+                            PreviewTextInput="TxtPhoneId_PreviewTextInput"
+                            TextChanged="ValidarCampos" />
+                        </Grid>
+                    </Border>
+
+                    <!--  URL  -->
+                    <Label Content="URL del endpoint de la API:"
+                           FontFamily="Century Gothic"/>
+                    <Border
+                    Margin="0,0,0,10"
+                    BorderBrush="Gray"
+                    BorderThickness="0,0,0,2"
+                    CornerRadius="4">
+                        <Grid>
+                            <Image
+                            Width="40"
+                            Margin="4,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Source="/Images/web.png" />
+
+                            <TextBox
+                            x:Name="txtUrl"
+                            IsReadOnly="True"
+                            Height="30"
+                            Padding="47,9,0,0"
+                            FontFamily="Century Gothic"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            CaretBrush="White"
+                            TextChanged="ValidarCampos" />
+                        </Grid>
+
+                    </Border>
+
+                    <!--  VERSIÓN  -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="0">
+                            <Label Content="Versión:"
+                                   FontFamily="Century Gothic"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1">
+                            <Label Content="Temporizador:"
+                                   FontFamily="Century Gothic"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox
+                                x:Name="cmbVersion"
+                                Width="150"
+                                Height="30"
+                                Padding="18,7,0,0"
+                                HorizontalAlignment="Left"
+                                FontFamily="Century Gothic"
+                                SelectedIndex="5"
+                                SelectionChanged="ValidarCampos">
+                            <ComboBoxItem Content="v18.0" />
+                            <ComboBoxItem Content="v19.0" />
+                            <ComboBoxItem Content="v20.0" />
+                            <ComboBoxItem Content="v21.0" />
+                            <ComboBoxItem Content="v22.0" />
+                            <ComboBoxItem Content="v23.0" />
+                            <ComboBoxItem Content="v24.0" />
+                            <ComboBoxItem Content="v25.0" />
+                        </ComboBox>
+
+                        <ComboBox x:Name="cmbTemp"
+                                  Margin="10,0,0,0"
+                                  Width="180"
+                                  Height="30"
+                                  Padding="18,7,0,0"
+                                  HorizontalAlignment="Left"
+                                  Foreground="Black"
+                                  FontFamily="Century Gothic"
+                                  SelectedIndex="3"
+                                  SelectionChanged="ValidarCampos"
+                                  ToolTip="--Selecciona el Temporizador--">
+
+                            <ComboBoxItem Content="5 ms" Tag="5"/>
+                            <ComboBoxItem Content="100 ms" Tag="100"/>
+                            <ComboBoxItem Content="500 ms" Tag="500"/>
+                            <ComboBoxItem Content="1 Segundo" Tag="1000"/>
+                            <ComboBoxItem Content="5 Segundos" Tag="5000"/>
+                            <ComboBoxItem Content="10 Segundos" Tag="10000"/>
+                            <ComboBoxItem Content="30 Segundos" Tag="30000"/>
+                            <ComboBoxItem Content="1 Minuto" Tag="60000"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                </StackPanel>
+
+                <!--  BOTONES  -->
+                <StackPanel
+                Grid.Row="2"
+                Margin="0,0,20,0"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal" Width="250">
+                    <!--  Botón Cancelar  -->
+                    <Button
+                    x:Name="btnCancelar"
+                    Width="120"
+                    Height="40"
+                    Margin="0,0,10,0"
+                    Click="Cancelar_Click"
+                    Cursor="Hand">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border
+                                Background="Red"
+                                BorderBrush="gray"
+                                BorderThickness="1"
+                                CornerRadius="10">
+                                    <StackPanel
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                        <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                            FontFamily="Century Gothic"
+                                        Foreground="White"
+                                        Text="Cancelar" />
+                                    </StackPanel>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!--  Botón Guardar  -->
+                    <Button
+                    x:Name="btnGuardar"
+                    Width="120"
+                    Height="40"
+                    Click="Guardar_Click"
+                    Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Opacity" Value="1" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Opacity" Value="0.7" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Opacity" Value="0.4" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border
+                                Background="#0d0940"
+                                BorderBrush="gray"
+                                BorderThickness="1"
+                                CornerRadius="10">
+                                    <StackPanel
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                        <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontFamily="Century Gothic"
+                                        FontSize="16"
+                                        Foreground="White"
+                                        Text="Guardar" />
+                                    </StackPanel>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+            <Border
+            x:Name="LoadingOverlay"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Panel.ZIndex="100"
+            Background="#80000080"
+            CornerRadius="20"
+            Visibility="Collapsed">
+
+                <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <!--  Aquí reutilizamos tu spinner original  -->
+                    <Canvas
+                    x:Name="LoadingSpinner"
+                    Width="60"
+                    Height="60">
+                        <Canvas.Resources>
+                            <Storyboard x:Key="RotateStoryboard" RepeatBehavior="Forever">
+                                <DoubleAnimation
+                                Storyboard.TargetName="spinnerPath"
+                                Storyboard.TargetProperty="(UIElement.RenderTransform).(RotateTransform.Angle)"
+                                From="0"
+                                To="360"
+                                Duration="0:0:1" />
+                            </Storyboard>
+                        </Canvas.Resources>
+
+                        <Path
+                        x:Name="spinnerPath"
+                        Data="M 30,5 A 25,25 0 1 1 29.9,5"
+                        RenderTransformOrigin="0.5,0.5"
+                        Stroke="White"
+                        StrokeThickness="4">
+                            <Path.RenderTransform>
+                                <RotateTransform Angle="0" />
+                            </Path.RenderTransform>
+                        </Path>
+                    </Canvas>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

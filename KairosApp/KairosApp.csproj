@@ -9,16 +9,64 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\back-image.jpg" />
+    <None Remove="Images\cerrar-sesion.png" />
+    <None Remove="Images\cuenta.png" />
+    <None Remove="Images\iconkairos.ico" />
+    <None Remove="Images\id-insignia.png" />
+    <None Remove="Images\llamar.png" />
+    <None Remove="Images\phone.png" />
+    <None Remove="Images\Render 2.png" />
+    <None Remove="Images\Render-logo.png" />
+    <None Remove="Images\token.png" />
+    <None Remove="Images\web.png" />
+    <None Remove="Images\whatsapp-logo.png" />
+    <None Remove="Images\wifi-apagado.png" />
+    <None Remove="Images\wifi.png" />
+    <None Remove="Images\wifi_search.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EPPlus" Version="7.6.0" />
+    <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="MahApps.Metro" Version="2.4.10" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RestSharp" Version="112.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\KairosAPI\KairosAPI\KairosAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\back-image.jpg" />
+    <Resource Include="Images\cerrar-sesion.png" />
+    <Resource Include="Images\cuenta.png" />
+    <Resource Include="Images\iconkairos.ico" />
+    <Resource Include="Images\id-insignia.png" />
+    <Resource Include="Images\llamar.png" />
+    <Resource Include="Images\phone.png" />
+    <Resource Include="Images\Render 2.png" />
+    <Resource Include="Images\Render-logo.png" />
+    <Resource Include="Images\token.png" />
+    <Resource Include="Images\web.png" />
+    <Resource Include="Images\whatsapp-logo.png" />
+    <Resource Include="Images\wifi-apagado.png" />
+    <Resource Include="Images\wifi.png" />
+    <Resource Include="Images\wifi_search.png" />
+  </ItemGroup>
+
+	<ItemGroup>
+    <Page Update="App.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
   </ItemGroup>
 
 </Project>

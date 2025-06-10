@@ -1,0 +1,271 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp">
+
+    <!-- Panel Botones -->
+    <Style x:Key="menuConfig" TargetType="RadioButton">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="-5,0,0,10"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderThickness="4,0,0,0"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="0,5,5,0">
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <!--En Reposo-->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Margin" Value="0,0,0,5"/>
+                <Setter Property="Background" Value="{StaticResource panelColor1}"/>
+                <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource self}}"/>
+            </Trigger>
+
+            <!--Al hacer click-->
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Margin" Value="0,0,0,5"/>
+                <Setter Property="Background" Value="{StaticResource panelColor7}"/>
+                <Setter Property="BorderBrush" Value="{Binding Path=Tag, RelativeSource={RelativeSource self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Icono-->
+    <Style x:Key="ConfigIcon" TargetType="fa:IconImage">
+        <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10,0,20,0"/>
+    </Style>
+    <!--=====================================================================-->
+    <!--Botón de Control-->
+    <Style x:Key="panelBtn" TargetType="Button">
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource color13}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="5">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <!--En Reposo-->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource panelColor7}"/>
+                <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Icono-->
+    <Style x:Key="panelBtnIcon" TargetType="fa:IconImage">
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+        <Setter Property="Width" Value="13"/>
+        <Setter Property="Height" Value="13"/>
+    </Style>
+    <!--=====================================================================-->
+    <!--Botón de DG Contactos-->
+    <Style x:Key="importCont" TargetType="Button">
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource color13}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                        CornerRadius="4">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <!--En Reposo-->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color13}"/>
+                <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Icono-->
+    <Style x:Key="importContIcon" TargetType="fa:IconImage">
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+    </Style>
+    <!--=====================================================================-->
+    <!--Botón Limpiar DG-->
+    <Style x:Key="cleanDG" TargetType="Button">
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{StaticResource color15}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                    CornerRadius="4">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <!--En Reposo-->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color13}"/>
+                <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Icono-->
+    <Style x:Key="cleanDGIcon" TargetType="fa:IconImage">
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+    </Style>
+    
+    <!--=====================================================================-->
+    <!--Botón Enviar MSG-->
+    <Style x:Key="sendWABA" TargetType="Button">
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Background" Value="{StaticResource color29}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource color26}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="2"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="15"
+                            SnapsToDevicePixels="True"
+                            Padding="5">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <fa:IconImage Icon="Whatsapp"
+                                          Width="20"
+                                          Height="20"
+                                          Margin="3,0,8,0"
+                                          Foreground="White"/>
+                            <TextBlock Text="Enviar WhatsApp"
+                                       VerticalAlignment="Center"
+                                       FontSize="13"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <!--En Reposo-->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color26}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource color29}"/>
+                <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="sendWABAIcon" TargetType="fa:IconImage">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
+    </Style>
+
+    <!--=====================================================================-->
+    <!--Botón Limpiar DG Recibos-->
+    <Style x:Key="limpiarDGRec" TargetType="Button">
+        <Setter Property="Width" Value="130"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Background" Value="{StaticResource color22}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource color12}"/>
+        <Setter Property="BorderThickness" Value="3"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="2"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="15"
+                        SnapsToDevicePixels="True"
+                        Padding="5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="Borrar Lista"
+                                   VerticalAlignment="Center"
+                                   FontSize="15"
+                                       FontWeight="Bold"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <!--En Reposo-->
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color12}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource color22}"/>
+                <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--=====================================================================-->
+    <!--Botón Limpiar DG Recibos-->
+    <Style TargetType="ScrollBar" x:Key="CustomScrollBar" BasedOn="{StaticResource {x:Type ScrollBar}}">
+        <Setter Property="Background" Value="{StaticResource color27}"/>
+        <Setter Property="Foreground" Value="#00FFFF"/>
+        <Setter Property="Width" Value="8"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollBar">
+                    <Grid Background="Transparent">
+                        <Track Name="PART_Track" IsDirectionReversed="true">
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton Command="ScrollBar.LineUpCommand"
+                                              Background="{StaticResource color27}"
+                                              BorderBrush="{StaticResource color12}"
+                                              BorderThickness="0"
+                                              IsTabStop="False"/>
+                            </Track.DecreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb Background="{StaticResource color12}"
+                                       BorderBrush="{StaticResource color27}"
+                                       BorderThickness="0"/>
+                            </Track.Thumb>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton Command="ScrollBar.LineDownCommand"
+                                              Background="{StaticResource color27}"
+                                              BorderBrush="{StaticResource color12}"
+                                              IsTabStop="False"/>
+                            </Track.IncreaseRepeatButton>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -4,77 +4,861 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KairosApp"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        Icon="/Images/iconkairos.ico"
         mc:Ignorable="d"
-        Title="Kairos eFact" Height="720" Width="1280"
-        Background="#F4F4F4">
+        Title="Kairos eFact" Height="740" Width="1280"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True">
 
-    <DockPanel LastChildFill="True">
-        <!-- Encabezado -->
-        <TextBlock Text="Kairos eFact" FontSize="24" FontWeight="Bold"
-                   Foreground="#007ACC" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="10"/>
-
-        <!-- Botón de inicio de sesión -->
-        <Button x:Name="BtnVincular" Content="Iniciar Sesión" Click="BtnVincular_Click"
-                Width="120" Height="30" Margin="10" DockPanel.Dock="Top" HorizontalAlignment="Right"/>
-
-        <!-- Control de Envíos (Historial de Mensajes) -->
-        <StackPanel Width="250" Background="#E3F2FD" DockPanel.Dock="Left" Margin="10">
-            <TextBlock Text="Control de Envíos" FontWeight="Bold" FontSize="16" Margin="5"/>
-            <DataGrid x:Name="dgHistorialEnvios" AutoGenerateColumns="False" Height="300" Background="White">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha}" Width="*"/>
-                    <DataGridTextColumn Header="Número" Binding="{Binding Numero}" Width="*"/>
-                    <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
+    <Border CornerRadius="10"
+            BorderThickness="2"
+            Height="740">
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource windBorderColor1}" Offset="0.0"/>
+                <GradientStop Color="{StaticResource windBorderColor2}" Offset="0.0"/>
+                <GradientStop Color="{StaticResource windBorderColor3}" Offset="0.0"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             
-        </StackPanel>
+            <Border CornerRadius="10,0,0,10"
+                    Grid.Column="0"
+                    Background="{StaticResource color27}">
 
-        <StackPanel Width="250" Background="#E8F5E9" DockPanel.Dock="Right" Margin="10">
-            <TextBlock Text="Mensajes Recibidos" FontWeight="Bold" FontSize="16" Margin="5"/>
-            <DataGrid x:Name="dgMensajesRecibidos" AutoGenerateColumns="False" Height="300" Background="White">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Fecha" Binding="{Binding FechaRecibido}" Width="*"/>
-                    <DataGridTextColumn Header="Remitente" Binding="{Binding NumRemitente}" Width="*"/>
-                    <DataGridTextColumn Header="Mensaje" Binding="{Binding Mensaje}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button Content="Simular Respuesta" Width="150" Click="BtnSimularRespuesta_Click" Margin="10"/>
-            <Button Content="Limpiar" Width="100" Height="25" Click="BtnLimpiarMensajesRec"/>
-        </StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
 
-        <!-- Área central: Lista de contactos y Redacción de Mensajes -->
-        <StackPanel Background="White" Margin="10">
-            <!-- Barra de búsqueda y botones -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                <TextBlock Text="Buscar Contacto" FontSize="16" Margin="0,3,10,0"/>
-                <TextBox x:Name="txtBuscar" Width="300" Height="25" KeyUp="TxtBuscar_Up"/>
-                <Button Content="Importar Contactos" Width="140" Height="25" Click="BtnImportar_Click" Margin="5"/>
-                <Button Content="Limpiar Lista" Width="100" Height="25" Click="BtnLimpiar_Click"/>
-            </StackPanel>
+                    <StackPanel Grid.Row="0">
+                        <StackPanel Orientation="Horizontal"
+                                    Height="35"
+                                    Margin="10,10,10,570">
+                            <Image Source="/Images/Render 2.png"
+                                   Width="35"
+                                   Height="30"/>
+                        </StackPanel>
+                    </StackPanel>
 
-            <!-- Lista de Contactos -->
-            <DataGrid x:Name="dgContactos" AutoGenerateColumns="False" IsReadOnly="True" Height="250" Background="White" Margin="5">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
-                    <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                    <StackPanel Grid.Row="2">
+                        <RadioButton Style="{StaticResource menuConfig}"
+                                     Tag="{StaticResource color24}"
+                                     Margin="0"
+                                     Click="BtnConfigWin_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Gear" Style="{StaticResource ConfigIcon}"/>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
 
-            <!-- Redacción de Mensajes -->
-            <StackPanel Margin="5">
-                <TextBlock Text="Redactar Mensaje" FontSize="16"/>
-                <TextBox x:Name="txtMensaje" AcceptsReturn="True" Height="100"/>
-            </StackPanel>
+                    <StackPanel Grid.Row="3">
+                        <RadioButton x:Name="BtnVincular"
+                                     Style="{StaticResource menuConfig}"
+                                     Tag="{StaticResource color24}"
+                                     Click="BtnVincular_Click"
+                                     Margin="0">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="ArrowRightFromBracket" Style="{StaticResource ConfigIcon}"
+                                            RenderTransformOrigin="0.5,0.5">
+                                    <fa:IconImage.RenderTransform>
+                                        <RotateTransform Angle="180"/>
+                                    </fa:IconImage.RenderTransform>
+                                </fa:IconImage>
+                            </StackPanel>
+                        </RadioButton>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            
+            <!--Panel Central-->
+            <Border CornerRadius="0,10,10,0"
+                    Grid.Column="1"
+                    >
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="1,0" EndPoint="0,0">
+                        <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="0"/>
+                        <GradientStop Color="{StaticResource thirdBackColor2}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
 
-            <!-- Adjuntar Archivos y Enviar -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                <TextBlock x:Name="ArchAdjunto" Width="250" Text="Ningún Archivo Adjunto" Margin="5"/>
-                <Button Content="Adjuntar Archivo" Width="120" Click="BtnAdjuntar_Click"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                <Button Content="Enviar Mensaje" Width="120" Click="BtnEnviar_Click"/>
-            </StackPanel>
-        </StackPanel>
-    </DockPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border CornerRadius="10,0,0,10"
+                            BorderThickness="3"
+                            MouseLeftButtonDown="pnlControlMouse">
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="1,0" EndPoint="0,0">
+                                <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="0"/>
+                                <GradientStop Color="{StaticResource thirdBackColor2}" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <StackPanel Grid.Row="0"
+                                    x:Name="pnlControl"
+                                    Orientation="Horizontal"
+                                    FlowDirection="RightToLeft"
+                                    Margin="0,0,10,0">
+
+                            <Button x:Name="btnCloseClick"
+                                    Style="{StaticResource panelBtn}"
+                                    Tag="{StaticResource color21}"
+                                    Click="btnClose_Click">
+                                <fa:IconImage Icon="Xmark" Style="{StaticResource panelBtnIcon}"/>
+                            </Button>
+
+                            <Button x:Name="btnMaximizeClick"
+                                    Style="{StaticResource panelBtn}"
+                                    Tag="{StaticResource color26}"
+                                    Click="btnMaximize_Click">
+                                <fa:IconImage Icon="Square" Style="{StaticResource panelBtnIcon}"/>
+                            </Button>
+
+                            <Button x:Name="btnMinimizeClick"
+                                    Style="{StaticResource panelBtn}"
+                                    Tag="{StaticResource color14}"
+                                    Click="btnMinimize_Click">
+                                <fa:IconImage Icon="WindowMinimize" Width="20" Style="{StaticResource panelBtnIcon}"/>
+                            </Button>
+
+                            <TextBlock Text="K A I R O S | eFact"
+                                       FontSize="10"
+                                       Foreground="White"
+                                       FontFamily="Lucida Sans"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Opacity=".50"
+                                       Margin="450,0,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    
+
+                    <Grid Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="55"/>
+                            <RowDefinition Height="15"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    FlowDirection="LeftToRight"
+                                    Margin="25,0,0,0">
+
+                            <fa:IconImage Icon="UserCircle" Width="35" Height="35"
+                                          Foreground="{StaticResource fontColor1}"/>
+
+                            <TextBlock x:Name="txtUsuario"
+                                       FontSize="15"
+                                       Foreground="White"
+                                       FontFamily="Lucida Sans"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="450"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <!--Control Envios-->
+                        <StackPanel Grid.Column="0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="610"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock Text="Control de Envios"
+                                               Foreground="White"
+                                               FontSize="20"
+                                               FontFamily="Century Gothic"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,0,0,10"/>
+
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="0,0,0,20">
+                                        <fa:IconImage Icon="Search" 
+                                                      Foreground="{StaticResource panelColor2}" 
+                                                      Width="20" Margin="20,0,0,0"/>
+                                        <TextBox x:Name="txtBuscarEnv" 
+                                                 Margin="10,0,0,0"
+                                                 Width="319" Height="25" 
+                                                 KeyUp="searchEnv" TextChanged="txtBuscarEnv_TextChanged"
+                                                 Background="Transparent"
+                                                 BorderThickness="0,0,0,1"
+                                                 CaretBrush="{StaticResource color11}"
+                                                 BorderBrush="{StaticResource panelColor2}"
+                                                 Foreground="{StaticResource fontColor3}"
+                                                 FontSize="15"/>
+                                    </StackPanel>
+
+                                    <Border CornerRadius="5"
+                                            Background="{StaticResource color27}"
+                                            BorderBrush="{StaticResource color11}"
+                                            BorderThickness="1"
+                                            Width="350">
+                                        <DataGrid x:Name="dgHistorialEnvios"
+                                                  AutoGenerateColumns="False"
+                                                  IsReadOnly="True"
+                                                  HeadersVisibility="Column"
+                                                  Height="400"
+                                                  Background="Transparent"
+                                                  BorderBrush="Transparent"
+                                                  RowBackground="{StaticResource panelColor3}"
+                                                  GridLinesVisibility="All"
+                                                  HorizontalGridLinesBrush="{StaticResource color11}"
+                                                  VerticalGridLinesBrush="{StaticResource color11}"
+                                                  Foreground="White"
+                                                  FontSize="14">
+
+                                            <DataGrid.Resources>
+                                                <Style TargetType="ScrollBar" BasedOn="{StaticResource CustomScrollBar}"/>
+                                            </DataGrid.Resources>
+
+                                            <DataGrid.CellStyle>
+                                                <Style TargetType="DataGridCell">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="FontSize" Value="14"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                </Style>
+                                            </DataGrid.CellStyle>
+
+                                            <DataGrid.ColumnHeaderStyle>
+                                                <Style TargetType="DataGridColumnHeader">
+                                                    <Setter Property="Background" Value="{StaticResource color27}" />
+                                                    <Setter Property="Foreground" Value="White" />
+                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                    <Setter Property="FontSize" Value="15" />
+                                                    <Setter Property="Height" Value="30" />
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                                                    <Setter Property="BorderBrush" Value="{StaticResource color11}" />
+                                                </Style>
+                                            </DataGrid.ColumnHeaderStyle>
+
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Fecha" Binding="{Binding FechaEnvio,StringFormat='g'}" Width="130"/>
+                                                <DataGridTextColumn Header="Número" Binding="{Binding CE_nolada}" Width="*" />
+                                                <DataGridTemplateColumn Header="Estado" Width="*">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Estado}" FontWeight="Bold" HorizontalAlignment="Center">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Setter Property="Foreground" Value="White"/>
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Estado}" Value="Leido">
+                                                                                <Setter Property="Foreground" Value="{StaticResource color26}" />
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Estado}" Value="Entregado">
+                                                                                <Setter Property="Foreground" Value="#00FEFF" />
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Estado}" Value="Enviado">
+                                                                                <Setter Property="Foreground" Value="#FDFF34" />
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Estado}" Value="Fallido">
+                                                                                <Setter Property="Foreground" Value="#FF4245" />
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Estado}" Value="Pendiente">
+                                                                                <Setter Property="Foreground" Value="White" />
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Border>
+
+                                    <StackPanel Orientation="Horizontal" 
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Margin="0,10,0,0">
+                                        <TextBlock Text="Estado: "
+                                                   FontSize="18"
+                                                   Foreground="White"
+                                                   FontFamily="Century Gothic"
+                                                   VerticalAlignment="Top"
+                                                   Margin="0,5,5,0"/>
+
+                                        <ComboBox Style="{StaticResource CBStyle}"
+                                                  x:Name="cbFiltroEstado" Width="150" 
+                                                  SelectionChanged="CbFiltroEstado_SelectionChanged"
+                                                  Margin="0,0,0,0"
+                                                  Foreground="White"
+                                                  FontWeight="Bold"
+                                                  FontSize="14">
+
+                                            <ComboBoxItem Content="Todos" IsSelected="True"/>
+                                            <ComboBoxItem Content="Pendiente"/>
+                                            <ComboBoxItem Content="Entregado"/>
+                                            <ComboBoxItem Content="Enviado"/>
+                                            <ComboBoxItem Content="Leido"/>
+                                            <ComboBoxItem Content="Fallido"/>
+                                        </ComboBox>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="1"
+                                            Margin="10,0,0,0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="44"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <StackPanel Orientation="Horizontal"
+                                                    HorizontalAlignment="Center"
+                                                    Grid.Column="0">
+                                            
+                                            <Image x:Name="wifiSearch"
+                                               Source="/Images/wifi_search.png" 
+                                               Width="30" Height="50"
+                                               Visibility="Visible"/>
+
+                                            <Image x:Name="wifiConnected"
+                                               Source="/Images/wifi.png" 
+                                               Width="30" Height="50"
+                                               Visibility="Collapsed"/>
+
+                                            <Image x:Name="wifiError"
+                                               Source="/Images/wifi-apagado.png" 
+                                               Width="30" Height="50"
+                                               Visibility="Collapsed"/>
+                                        </StackPanel>
+                                        
+                                        <StackPanel VerticalAlignment="Center"
+                                                    Grid.Column="1">
+                                            <Label x:Name="lblConnection"
+                                                   Content="Verificando Conexion a Internet..."
+                                                   Foreground="White"
+                                                   FontFamily="Century Gothic"
+                                                   FontSize="14"
+                                                   VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+
+                        <!--Contactos-->
+                        <StackPanel Grid.Column="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="380"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <!--DG Contactos-->
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock Text="Contactos Clientes"
+                                               HorizontalAlignment="Center"
+                                               Foreground="White"
+                                               FontSize="20"
+                                               FontFamily="Century Gothic"
+                                               Margin="0,0,0,5"/>
+                                    <StackPanel Orientation="Horizontal" 
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Top"
+                                                Margin="5,5,5,13" Width="440">
+
+                                        <fa:IconImage Icon="Search" Foreground="{StaticResource panelColor2}" 
+                                                    Width="20" Margin="10,0,0,0"/>
+                                        <TextBox x:Name="txtBuscar" 
+                                                 Margin="10,0,0,0"
+                                                 Width="300" Height="25" 
+                                                 KeyUp="TxtBuscar_Up" TextChanged="txtBuscar_TextChanged"
+                                                 Background="Transparent"
+                                                 BorderThickness="0,0,0,1"
+                                                 CaretBrush="{StaticResource color11}"
+                                                 BorderBrush="{StaticResource panelColor2}"
+                                                 Foreground="{StaticResource fontColor3}"
+                                                 FontSize="15"/>
+
+                                        <Button x:Name="btnImportarCont"
+                                                Style="{StaticResource importCont}"
+                                                Tag="{StaticResource color22}"
+                                                Margin="10,0,20,0"
+                                                Click="BtnImportar_Click">
+                                            <fa:IconImage Icon="FolderOpen" Style="{StaticResource importContIcon}"/>
+                                        </Button>
+
+                                        <Button x:Name="btnLimpiarClick"
+                                                Style="{StaticResource cleanDG}"
+                                                Tag="{StaticResource color22}"
+                                                Margin="-15,0,0,0"
+                                                Click="BtnLimpiar_Click">
+                                            <fa:IconImage Icon="Eraser" Style="{StaticResource cleanDGIcon}"/>
+                                        </Button>
+                                    </StackPanel>
+
+                                    <Border CornerRadius="5"
+                                            Background="{StaticResource panelColor3}"
+                                            BorderBrush="{StaticResource color11}"
+                                            BorderThickness="1">
+
+                                        <DataGrid x:Name="dgContactos" 
+                                                  SelectionMode="Extended" SelectionUnit="FullRow" 
+                                                  AutoGenerateColumns="False" IsReadOnly="True" 
+                                                  Height="300" Width="Auto"
+                                                  Background="Transparent"
+                                                  SelectionChanged="dgContactos_SelectionChanged"
+                                                  BorderBrush="Transparent"
+                                                  RowBackground="Transparent"
+                                                  AlternatingRowBackground="Transparent"
+                                                  HeadersVisibility="Column"
+                                                  EnableColumnVirtualization="False"
+                                                  HorizontalGridLinesBrush="{StaticResource color11}"
+                                                  VerticalGridLinesBrush="{StaticResource color11}">
+
+                                            <DataGrid.Resources>
+                                                <Style TargetType="ScrollBar" BasedOn="{StaticResource CustomScrollBar}"/>
+                                            </DataGrid.Resources>
+
+                                            <DataGrid.CellStyle>
+                                                <Style TargetType="DataGridCell">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="FontSize" Value="14"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsSelected" Value="True">
+                                                            <Setter Property="Background" Value="{StaticResource color22}"/>
+                                                            <Setter Property="Foreground" Value="White"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </DataGrid.CellStyle>
+
+                                            <DataGrid.ColumnHeaderStyle>
+                                                <Style TargetType="DataGridColumnHeader">
+                                                    <Setter Property="Background" Value="{StaticResource color27}"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                    <Setter Property="FontSize" Value="15"/>
+                                                    <Setter Property="Height" Value="30"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                                    <Setter Property="BorderBrush" Value="{StaticResource color11}"/>
+                                                </Style>
+                                            </DataGrid.ColumnHeaderStyle>
+
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
+                                                <DataGridTextColumn Header="Teléfono" Binding="{Binding nolada}" Width="*"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Border>
+                                </StackPanel>
+
+                                <!--Enviar Mensaje-->
+                                <StackPanel Grid.Row="1">
+                                    <StackPanel HorizontalAlignment="Center" Margin="10,10,0,0">
+                                        <Grid Width="400">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Column="0"
+                                                       Text="Seleccionar Plantilla:"
+                                                       Foreground="{StaticResource fontColor5}"
+                                                       FontSize="15"
+                                                       FontFamily="Lucida Sans Unicode"
+                                                       HorizontalAlignment="Right"
+                                                       VerticalAlignment="Center"
+                                                       Margin="0,0,10,0"/>
+
+                                            <ComboBox Style="{StaticResource CBStyle}"
+                                                      x:Name="cbTipoPlantilla"
+                                                      Grid.Column="1"
+                                                      Width="180"
+                                                      SelectionChanged="cbTipoPlantilla_SelectionChanged"
+                                                      SelectedIndex="0"
+                                                      FontSize="13"
+                                                      FontStretch="Medium"
+                                                      FontWeight="Bold"
+                                                      HorizontalAlignment="Left"
+                                                      HorizontalContentAlignment="Center">
+
+                                                <ComboBoxItem Content="Factura"/>
+                                                <ComboBoxItem Content="Marketing"/>
+                                                <ComboBoxItem Content="Cupon"/>
+                                                <ComboBoxItem Content="Promocion"/>
+                                            </ComboBox>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                        <StackPanel Width="250">
+                                            <TextBlock Text="Cliente"
+                                                       Foreground="{StaticResource fontColor1}"
+                                                       FontSize="14"
+                                                       FontFamily="Century Gothic"/>
+                                            <Border 
+                                                    Background="Transparent" 
+                                                    BorderBrush="{StaticResource color11}" 
+                                                    BorderThickness="1" 
+                                                    CornerRadius="10"
+                                                    Padding="2">
+                                                <TextBox 
+                                                        x:Name="txtNombreCliente"
+                                                        Background="Transparent" 
+                                                        BorderThickness="0"
+                                                        Foreground="White"
+                                                        FontFamily="Century Gothic"
+                                                        FontSize="12"
+                                                        VerticalContentAlignment="Center"
+                                                        Padding="4"
+                                                        IsReadOnly="True"/>
+                                            </Border>
+                                        </StackPanel>
+
+                                        <StackPanel Width="180" Margin="10,0,0,0">
+                                            <TextBlock Text="No. WhatsApp"
+                                                       Foreground="{StaticResource fontColor1}"
+                                                       FontSize="14"
+                                                       FontFamily="Century Gothic"/>
+                                            <Border 
+                                                Background="Transparent" 
+                                                BorderBrush="{StaticResource color11}" 
+                                                BorderThickness="1" 
+                                                CornerRadius="10"
+                                                Padding="2">
+                                                <TextBox 
+                                                    x:Name="txtTelefonoDestino"
+                                                    Background="Transparent" 
+                                                    BorderThickness="0"
+                                                    Foreground="White"
+                                                    FontFamily="Century Gothic"
+                                                    FontSize="12"
+                                                    VerticalContentAlignment="Center"
+                                                    Padding="4"
+                                                    IsReadOnly="True"/>
+                                            </Border>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Margin="0,10,0,0">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel Grid.Column="0"
+                                                        Orientation="Vertical" 
+                                                        HorizontalAlignment="Left"
+                                                        Margin="0,0,0,10"
+                                                        Width="130">
+                                                <TextBlock Text="Tipo de Comprobante"
+                                                           Foreground="White"
+                                                           FontFamily="Century Gothic"
+                                                           Margin="0,0,0,5"
+                                                           x:Name="txtbxComp"/>
+                                                <ComboBox Style="{StaticResource CBStyle}"
+                                                          Visibility="Visible"
+                                                          x:Name="cbComprobante" 
+                                                          Height="25"
+                                                          SelectedIndex="0"
+                                                          FontWeight="Bold"
+                                                          FontSize="13"
+                                                          HorizontalContentAlignment="Center">
+                                                    <ComboBoxItem Content="Factura"/>
+                                                    <ComboBoxItem Content="Note de Prueba"/>
+                                                    <ComboBoxItem Content="Remision"/>
+                                                </ComboBox>
+                                            </StackPanel>
+
+                                            <StackPanel Width="120" Grid.Column="1">
+                                                <TextBlock Text="No. Comprobante"
+                                                           Foreground="White"
+                                                           FontFamily="Century Gothic"
+                                                           FontSize="13"
+                                                           Margin="0,0,0,5"
+                                                           x:Name="txtbxNoComp"/>
+                                                <Border Background="Transparent" 
+                                                        BorderBrush="{StaticResource color11}" 
+                                                        BorderThickness="1" 
+                                                        CornerRadius="10"
+                                                        Padding="2"
+                                                        Visibility="Visible"
+                                                        x:Name="brComp">
+                                                    <TextBox x:Name="txtFolio" Height="25"
+                                                             Background="Transparent" 
+                                                             BorderBrush="Transparent"
+                                                             BorderThickness="0"
+                                                             Foreground="White"
+                                                             CaretBrush="{StaticResource color11}"
+                                                             FontFamily="Century Gothic"
+                                                             FontSize="12"
+                                                             VerticalContentAlignment="Center"
+                                                             Padding="4"
+                                                             Visibility="Visible"/>
+                                                </Border>
+                                            </StackPanel>
+
+                                            <StackPanel Width="120" Margin="10,0,0,0" Grid.Column="2">
+                                                <TextBlock Text="Total $"
+                                                           Foreground="White"
+                                                           FontFamily="Century Gothic"
+                                                           FontSize="13"
+                                                           Margin="0,0,0,5"
+                                                           x:Name="txtbxTotal"/>
+
+                                                <Border Background="Transparent" 
+                                                        BorderBrush="{StaticResource color11}" 
+                                                        BorderThickness="1" 
+                                                        CornerRadius="10"
+                                                        Padding="2"
+                                                        x:Name="brTotal">
+                                                    <TextBox x:Name="txtTotal" Height="25"
+                                                             Background="Transparent" 
+                                                             BorderThickness="0"
+                                                             Foreground="White"
+                                                             CaretBrush="{StaticResource color11}"
+                                                             FontFamily="Century Gothic"
+                                                             FontSize="12"
+                                                             VerticalContentAlignment="Center"
+                                                             Padding="4"
+                                                             Visibility="Visible"/>
+                                                </Border>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Margin="0,10,0,10">
+                                        <TextBlock x:Name="txtbxPDF"
+                                                   Text="Link de Descarga"
+                                                   Foreground="White"
+                                                   FontSize="14"
+                                                   FontFamily="Century Gothic"
+                                                   Margin="0,0,0,5"/>
+
+                                        <Border Background="Transparent" 
+                                                BorderBrush="{StaticResource color11}" 
+                                                BorderThickness="1" 
+                                                CornerRadius="10"
+                                                Padding="2"
+                                                Width="440"
+                                                x:Name="brPDF">
+                                            <TextBox x:Name="txtLinkPDF" Height="25"
+                                                     Background="Transparent" 
+                                                     BorderThickness="0"
+                                                     Foreground="White"
+                                                     FontFamily="Century Gothic"
+                                                     FontSize="12"
+                                                     CaretBrush="{StaticResource color11}"
+                                                     VerticalContentAlignment="Center"
+                                                     Padding="4"
+                                                     Visibility="Visible"/>
+                                        </Border>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button x:Name="btnEnviarPlantilla"
+                                                Style="{StaticResource sendWABA}"
+                                                Tag="{StaticResource color22}"
+                                                Margin="10,0,20,0"
+                                                Click="BtnEnviarPlantilla"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                        
+                        <!--Control de Recibidos-->
+                        <StackPanel Grid.Column="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="610"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0">
+                                    <TextBlock Text="Control de Recibidos"
+                                               Foreground="White"
+                                               FontSize="20"
+                                               FontFamily="Century Gothic"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,0,0,10"/>
+
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="0,0,0,20">
+                                        <fa:IconImage Icon="Search" 
+                                                      Foreground="{StaticResource panelColor2}" 
+                                                      Width="20" Margin="20,0,0,0"/>
+                                        <TextBox x:Name="txtBuscarRec" 
+                                                 Margin="10,0,0,0"
+                                                 Width="170" Height="25" 
+                                                 KeyUp="searchRec" TextChanged="txtBuscarRec_TextChanged"
+                                                 Background="Transparent"
+                                                 BorderThickness="0,0,0,1"
+                                                 CaretBrush="{StaticResource color11}"
+                                                 BorderBrush="{StaticResource panelColor2}"
+                                                 Foreground="{StaticResource fontColor3}"
+                                                 FontSize="15"/>
+
+                                        <ComboBox Style="{StaticResource CBStyle}"
+                                                  x:Name="cbFiltroMensaje" Width="130" 
+                                                  SelectionChanged="CbFiltroMensaje_SelectionChanged"
+                                                  Margin="20,0,0,0"
+                                                  Foreground="White"
+                                                  FontWeight="Bold"
+                                                  FontSize="14">
+
+                                            <ComboBoxItem Content="Todos" IsSelected="True"/>
+                                            <ComboBoxItem Content="Interesado"/>
+                                            <ComboBoxItem Content="No Interesado"/>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <Border CornerRadius="5"
+                                            Background="{StaticResource panelColor3}"
+                                            BorderBrush="{StaticResource color11}"
+                                            BorderThickness="1"
+                                            Width="350">
+                                        <DataGrid x:Name="dgMensajesRecibidos" 
+                                                  AutoGenerateColumns="False" 
+                                                  IsReadOnly="True" 
+                                                  Height="400"
+                                                  Width="350"
+                                                  Background="Transparent"
+                                                  BorderBrush="Transparent"
+                                                  RowBackground="Transparent"
+                                                  AlternatingRowBackground="Transparent"
+                                                  HeadersVisibility="Column"
+                                                  EnableColumnVirtualization="False"
+                                                  HorizontalGridLinesBrush="{StaticResource color11}"
+                                                  VerticalGridLinesBrush="{StaticResource color11}">
+
+                                            <DataGrid.Resources>
+                                                <Style TargetType="ScrollBar" BasedOn="{StaticResource CustomScrollBar}"/>
+                                            </DataGrid.Resources>
+
+                                            <DataGrid.CellStyle>
+                                                <Style TargetType="DataGridCell">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="FontSize" Value="14"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                </Style>
+                                            </DataGrid.CellStyle>
+
+                                            <DataGrid.ColumnHeaderStyle>
+                                                <Style TargetType="DataGridColumnHeader">
+                                                    <Setter Property="Background" Value="{StaticResource color27}"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
+                                                    <Setter Property="FontSize" Value="15"/>
+                                                    <Setter Property="Height" Value="30"/>
+                                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                                    <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                                    <Setter Property="BorderBrush" Value="{StaticResource color11}"/>
+                                                </Style>
+                                            </DataGrid.ColumnHeaderStyle>
+
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Fecha" Binding="{Binding FechaRecibido}" Width="*"/>
+                                                <DataGridTextColumn Header="Remitente" Binding="{Binding CR_nolada}" Width="*"/>
+                                                <DataGridTemplateColumn Header="Mensaje" Width="*">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <TextBlock Text="{Binding Mensaje}" FontWeight="Bold">
+                                                                <TextBlock.Style>
+                                                                    <Style TargetType="TextBlock">
+                                                                        <Style.Triggers>
+                                                                            <DataTrigger Binding="{Binding Mensaje}" Value="Si!, me interesa!">
+                                                                                <Setter Property="Foreground" Value="LimeGreen"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Mensaje}" Value="No gracias">
+                                                                                <Setter Property="Foreground" Value="Tomato"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Mensaje}" Value="No, gracias.">
+                                                                                <Setter Property="Foreground" Value="Tomato"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Mensaje}" Value="Si. Quiero la promoción!">
+                                                                                <Setter Property="Foreground" Value="LimeGreen"/>
+                                                                            </DataTrigger>
+                                                                            <DataTrigger Binding="{Binding Mensaje}" Value="Si. Quiero el cupón!">
+                                                                                <Setter Property="Foreground" Value="LimeGreen"/>
+                                                                            </DataTrigger>
+                                                                        </Style.Triggers>
+                                                                        <Setter Property="Foreground" Value="White"/>
+                                                                    </Style>
+                                                                </TextBlock.Style>
+                                                            </TextBlock>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </Border>
+
+                                    <StackPanel>
+                                        <Button x:Name="btnLimpiarMensajesRec"
+                                                Style="{StaticResource limpiarDGRec}"
+                                                Tag="{StaticResource color22}"
+                                                Margin="0,10,0,10"
+                                                Click="BtnLimpiarMensajesRec"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="1" 
+                                            HorizontalAlignment="Right"
+                                            Margin="0,0,20,0">
+                                    <TextBlock Text="Enviando Mensaje(s)..."
+                                               x:Name="txtSending"
+                                               Foreground="White"
+                                               FontFamily="Century Gothic"
+                                               FontSize="14"
+                                               HorizontalAlignment="Center"
+                                               Margin="0,5,0,0"
+                                               Visibility="Collapsed"/>
+                                    <ProgressBar x:Name="pbCargando"
+                                                 Width="150"
+                                                 Height="10"
+                                                 Visibility="Collapsed"
+                                                 IsIndeterminate="True"
+                                                 Background="{StaticResource panelColor7}"
+                                                 Foreground="{StaticResource fontColor4}"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

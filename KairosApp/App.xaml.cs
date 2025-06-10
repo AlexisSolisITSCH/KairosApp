@@ -1,13 +1,26 @@
-﻿using System.Configuration;
+﻿using KairosApp.Models;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
-namespace KairosApp;
-
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
-public partial class App : Application
+namespace KairosApp
 {
-}
+    public partial class App : Application
+    {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
 
+            SesionManager.CargarSesion();
+
+            if (!string.IsNullOrEmpty(LoginUser.nomb))
+            {
+                new MainWindow().Show();
+            }
+            else
+            {
+                new LoginWindow().Show();
+            }
+        }
+    }
+}

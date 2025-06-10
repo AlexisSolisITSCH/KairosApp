@@ -1,0 +1,468 @@
+﻿<Window x:Class="KairosApp.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        xmlns:local="clr-namespace:KairosApp"
+        Icon="/Images/iconkairos.ico"
+        mc:Ignorable="d"
+        Title="Inicio de Sesion" Height="500" Width="800"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize" 
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+
+    <!--Iniciar Sesion-->
+    <Border CornerRadius="40">
+        <Border.Background>
+            <ImageBrush ImageSource="/Images/back-image.jpg"
+                        Stretch="UniformToFill"/>
+        </Border.Background>
+        
+        <Border CornerRadius="30"
+                BorderThickness="5"
+                Opacity=".85" Height="500">
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="{StaticResource loginBorderColor1}" Offset="0"/>
+                    <GradientStop Color="{StaticResource loginBorderColor2}" Offset="0.75"/>
+                    <GradientStop Color="{StaticResource loginBorderColor3}" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                    <GradientStop Color="{StaticResource primaryBackColor2}" Offset="0"/>
+                    <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0.75"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="KAIROS e.Fact"
+                               Foreground="White"
+                               FontSize="13"
+                               FontFamily="Century Gothic"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="20,0,0,0"/>
+
+                    <Button x:Name="btnMinimize"
+                            BorderThickness="0"
+                            Background="#0468BF"
+                            Content="-"
+                            Foreground="White"
+                            FontSize="16"
+                            FontFamily="Century Gothic"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimizar_Click">
+
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#04198C"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#99D0F2"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="5"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="btnClose"
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Century Gothic"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnCerrar_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#04198C"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#99D0F2"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                    CornerRadius="5"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+                
+                <!--Inicio Sesion-->
+                <StackPanel x:Name="LoginPanel"
+                            Visibility="Visible"
+                            Width="250"
+                            Grid.Row="2"
+                            Orientation="Vertical"
+                            Margin="0,35,0,0">
+                    <Image Source="/Images/Render-logo.png"
+                           Width="100" Height="100"/>
+
+                    <TextBlock Text="K A I R O S | EFACT"
+                               Foreground="White"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               FontFamily="Lucida Sans Unicode"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock Text="Nombre de usuario"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Lucida Sans Unicode"
+                               Margin="0,35,0,0"/>
+
+                    <TextBox x:Name="txtNombreL"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Lucida Sans Unicode"
+                             Foreground="White"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="20"
+                             VerticalContentAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="20,0,0,0">
+
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/cuenta.png"
+                                        Stretch="None"
+                                        AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <TextBlock Text="Telefono"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Lucida Sans Unicode"
+                               Margin="0,15,0,0"/>
+
+                    <TextBox x:Name="txtNumL"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Lucida Sans Unicode"
+                             Foreground="White"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="20"
+                             VerticalContentAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="20,0,0,0">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/llamar.png"
+                                    Stretch="None"
+                                    AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <Button Content="Iniciar Sesion"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Century Gothic"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Margin="0,15,0,0"
+                            Click="btnLoginClick">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#012340"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#0468BF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="100" Height="30"
+                                    CornerRadius="20"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,5,0,0">
+                        <Label Content="¿No tienes una cuenta?"
+                               Foreground="DarkGray"
+                               FontFamily="Lucida Sans Unicode"
+                               FontSize="12"
+                               FontWeight="Medium"/>
+                        <Label Content="Registrate"
+                               Foreground="White"
+                               FontStyle="Italic"
+                               Margin="-5,0,0,0"
+                               MouseDown="LabelRegistro"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!--Configuracion-->
+                <StackPanel Grid.Row="1"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top">
+                    <RadioButton Style="{StaticResource menuConfig}"
+                                 Tag="{StaticResource color24}"
+                                 Margin="0"
+                                 Click="BtnConfigWin_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Gear" Style="{StaticResource ConfigIcon}"/>
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+
+                <!--Registro-->
+                <StackPanel x:Name="RegistroPanel" 
+                            Visibility="Collapsed"
+                            Width="250"
+                            Grid.Row="2"
+                            Orientation="Vertical"
+                            Margin="0,15,0,0">
+                    <Image Source="/Images/Render-logo.png"
+                           Width="100" Height="100"/>
+
+                    <TextBlock Text="K A I R O S | EFACT"
+                               Foreground="White"
+                               FontSize="20"
+                               FontWeight="Medium"
+                               FontFamily="Lucida Sans Unicode"
+                               HorizontalAlignment="Center"/>
+
+                    <TextBlock Text="Nombre de usuario"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Lucida Sans Unicode"
+                               Margin="0,5,0,0"/>
+
+                    <TextBox x:Name="txtNombreR"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Lucida Sans Unicode"
+                             Foreground="White"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="20"
+                             VerticalAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="20,0,0,0">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/cuenta.png"
+                                        Stretch="None"
+                                        AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <TextBlock Text="WhatsApp ID"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Lucida Sans Unicode"
+                               Margin="0,5,0,0"/>
+                    <TextBox x:Name="txtWabaid"
+                              FontSize="13"
+                              FontWeight="Medium"
+                              FontFamily="Lucida Sans Unicode"
+                              Foreground="White"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             Height="20"
+                             VerticalAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="20,0,0,0">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/whatsapp-logo.png"
+                                        Stretch="None"
+                                        AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <StackPanel>
+                        <Button Content="VALIDAR ID"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Century Gothic"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Margin="0,5,0,0"
+                            Click="btnBuscarNum">
+                            <Button.Style>
+                                <Style TargetType="Button">
+                                    <Setter Property="Background" Value="DarkGreen"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#0468BF"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Width="80" Height="30"
+                                        CornerRadius="10"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+                        <TextBlock x:Name="txtValidarId"
+                                   Text="Validando ID....."
+                                   Visibility="Collapsed"
+                                   Foreground="White"
+                                   FontSize="12"
+                                   FontWeight="Medium"
+                                   FontFamily="Lucida Sans Unicode"
+                                   Margin="0,5,0,0"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <TextBlock Text="PhonenNumberId"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Lucida Sans Unicode"
+                               Margin="0,5,0,0"/>
+                    <ComboBox Style="{StaticResource CBStyleReg}"
+                              x:Name="cbPhoneNumers" 
+                              Height="20"
+                              DisplayMemberPath="Id"
+                              SelectedValuePath="Id"
+                              SelectionChanged="cbPhoneNumbers_Select"
+                              FontSize="13"
+                              FontWeight="Medium"
+                              FontFamily="Lucida Sans Unicode"
+                              Foreground="Black"
+                              BorderBrush="LightGray"
+                              BorderThickness="0,0,0,2"/>
+
+                    <TextBlock Text="Numero de Telefono"
+                               Foreground="DarkGray"
+                               FontSize="12"
+                               FontWeight="Medium"
+                               FontFamily="Lucida Sans Unicode"
+                               Margin="0,5,0,0"/>
+                    <TextBox x:Name="txtTelefonoR"
+                             Height="20"
+                             IsReadOnly="True"
+                             FontSize="13"
+                             FontWeight="Medium"
+                             FontFamily="Lucida Sans Unicode"
+                             Foreground="White"
+                             CaretBrush="LightGray"
+                             BorderBrush="DarkGray"
+                             BorderThickness="0,0,0,2"
+                             VerticalAlignment="Center"
+                             Margin="0,5,0,0"
+                             Padding="20,0,0,0">
+                        <TextBox.Background>
+                            <ImageBrush ImageSource="/Images/llamar.png"
+                                        Stretch="None"
+                                        AlignmentX="Left"/>
+                        </TextBox.Background>
+                    </TextBox>
+
+                    <Button Content="Registrarse"
+                            BorderThickness="0"
+                            Foreground="White"
+                            FontSize="12"
+                            FontFamily="Century Gothic"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Margin="0,5,0,0"
+                            Click="btnRegisterClick">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#012340"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#0468BF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="80" Height="30"
+                                        CornerRadius="10"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,5,0,0">
+                        <Label Content="¿Ya tienes una cuenta?"
+                               Foreground="DarkGray"
+                               FontFamily="Lucida Sans Unicode"
+                               FontSize="12"
+                               FontWeight="Medium"/>
+                        <Label Content="Iniciar Sesion"
+                               Foreground="White"
+                               FontStyle="Italic"
+                               Margin="-5,0,0,0"
+                               MouseDown="LabelLogin"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

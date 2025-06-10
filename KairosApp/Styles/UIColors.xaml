@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--Background Colors-->
+    <Color x:Key="primaryBackColor1">#012340</Color>
+    <Color x:Key="primaryBackColor2">#03060D</Color>
+    <Color x:Key="secondaryBackColor2">#0B0940</Color>
+    <Color x:Key="secondaryBackColor1">#04198C</Color>
+    <Color x:Key="thirdBackColor2">#011126</Color>
+    <Color x:Key="thirdBackColor1">#04198C</Color>
+
+    <!--Border Colors-->
+    <Color x:Key="windBorderColor1">#023373</Color>
+    <Color x:Key="windBorderColor2">#025373</Color>
+    <Color x:Key="windBorderColor3">#2987D9</Color>
+    <Color x:Key="loginBorderColor1">#022859</Color>
+    <Color x:Key="loginBorderColor2">#034C8C</Color>
+    <Color x:Key="loginBorderColor3">#0468BF</Color>
+    
+    <!--Color Palette-->
+    <SolidColorBrush x:Key="color11" Color="#0C59F2"/>
+    <SolidColorBrush x:Key="color12" Color="#0B4FD9"/>
+    <SolidColorBrush x:Key="color13" Color="#99D0F2"/>
+    <SolidColorBrush x:Key="color14" Color="#F2E205"/>
+    <SolidColorBrush x:Key="color15" Color="#F2CB07"/>
+    <SolidColorBrush x:Key="color21" Color="#c20029"/>
+    <SolidColorBrush x:Key="color22" Color="#0B1F8C"/>
+    <SolidColorBrush x:Key="color23" Color="#1F2F8C"/>
+    <SolidColorBrush x:Key="color24" Color="#E9ECF2"/>
+    <SolidColorBrush x:Key="color25" Color="#F2BB16"/>
+    <SolidColorBrush x:Key="color26" Color="#00f054"/>
+    <SolidColorBrush x:Key="color27" Color="#011126"/>
+    <SolidColorBrush x:Key="color28" Color="#15B303"/>
+    <SolidColorBrush x:Key="color29" Color="#108703"/>
+    <SolidColorBrush x:Key="color30" Color="#022047"/>
+
+    <!--Font Color-->
+    <SolidColorBrush x:Key="fontColor1" Color="#F4F4F4"/>
+    <SolidColorBrush x:Key="fontColor2" Color="#5CF2C8"/>
+    <SolidColorBrush x:Key="fontColor3" Color="#5CF2C8"/>
+    <SolidColorBrush x:Key="fontColor4" Color="#527FD9"/>
+    <SolidColorBrush x:Key="fontColor5" Color="#66E5FF"/>
+
+    <!--Panel Color-->
+    <SolidColorBrush x:Key="panelColor1" Color="#1D3DF2"/>
+    <SolidColorBrush x:Key="panelColor2" Color="#5C73F2"/>
+    <SolidColorBrush x:Key="panelColor3" Color="#011640"/>
+    <SolidColorBrush x:Key="panelColor4" Color="#F2B705"/>
+    <SolidColorBrush x:Key="panelColor5" Color="#F20505"/>
+    <SolidColorBrush x:Key="panelColor6" Color="#01102E"/>
+    <SolidColorBrush x:Key="panelColor7" Color="#011E57"/>
+    
+    <!--Datagrid Color-->
+    <SolidColorBrush x:Key="dgcolor1" Color="#023059"/>
+</ResourceDictionary>
